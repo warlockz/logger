@@ -37,6 +37,6 @@ typedef enum log_level
 
 
 #define LOG(level,printf_exp) \
-		(level ? print("%s",printf_exp) : print("%s",MSGFAIL))
+		(level ? MSGOUT("%s \n",printf_exp) : MSGOUT("%s \n",MSGFAIL))
 
 #endif /* LOGGER_H_ */
