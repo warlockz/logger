@@ -8,6 +8,12 @@
 #ifndef LOGGER_H_
 #define LOGGER_H_
 
+#ifdef __cplusplus
+// https://msdn.microsoft.com/en-us/library/0603949d.aspx
+extern "C" {
+#endif
+
+#include <sys/file.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -39,5 +45,12 @@ typedef enum log_level
 
 #define LOG(level,printf_exp) \
 		(level ? MSGOUT("%s \n",printf_exp) : MSGOUT("%s \n",MSGFAIL))
+
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* LOGGER_H_ */
