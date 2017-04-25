@@ -13,7 +13,6 @@
 extern "C" {
 #endif
 
-#include <sys/file.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -22,11 +21,12 @@ extern "C" {
 #include <pthread.h>
 #include <stdarg.h>
 
-int print(const char* format,...);
 
+typedef unsigned char _uchar_t;
 #define MSGOUT print
-
 #define MSGFAIL "Failed"
+
+int print(const char* format,...);
 
 typedef enum log_level
 {
@@ -41,12 +41,28 @@ typedef enum log_level
 // TODO : if trace diabled or not
 //#define LOG(level,printf_exp)
 
+typedef struct _log_options
+{
+	union
+	{
+		_uchar_t value;
+		_uchar_t lvl1 : 1;
+		_uchar_t lvl2 : 1;
+		_uchar_t lvl3 : 1;
+
+	}Level;
+	_uchar_t devmode;
+}logsetting;
 
 
 #define LOG(level,printf_exp) \
 		(level ? MSGOUT("%s \n",printf_exp) : MSGOUT("%s \n",MSGFAIL))
 
+extern _uchar_t getLogLevel();
 
+extern InitLogger(_uchar_t level,_uchar_t devmode);
+
+extern FILE* g_File;
 
 #ifdef __cplusplus
 }

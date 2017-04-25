@@ -4,7 +4,7 @@
  *  Created on: 11-Oct-2016
  *      Author: yoge
  */
-#include "stdio.h"
+
 #include "logger.h"
 
 int print(const char* format,...)
