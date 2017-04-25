@@ -25,10 +25,11 @@ int print(const char* format,...);
 typedef enum log_level
 {
 	LEVEL_INVALID = 0x00,
-	LEVEL1 = 0x01,
-	LEVEL2 = 0x02,
-	LEVEL3 = 0x01,
-
+	LEVEL1 = 0x01, //  Low level information
+	LEVEL2 = 0x02, // entry Info
+	LEVEL3 = 0x03, // Detail Info
+	LEVEL_ERR, // Error info
+	LEVEL_WARN, // Warning info
 }log_level_t;
 
 // TODO : if trace diabled or not
