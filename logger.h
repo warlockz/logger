@@ -25,6 +25,7 @@ extern "C" {
 typedef unsigned char _uchar_t;
 #define MSGOUT print
 #define MSGFAIL "Failed"
+#define LOG_TO_STD_FILE '0'
 
 int print(const char* format,...);
 
@@ -34,8 +35,8 @@ typedef enum log_level
 	LEVEL1 = 0x01, //  Low level information
 	LEVEL2 = 0x02, // entry Info
 	LEVEL3 = 0x03, // Detail Info
-	LEVEL_ERR, // Error info
 	LEVEL_WARN, // Warning info
+	LEVEL_ERR, // Error info
 }log_level_t;
 
 // TODO : if trace diabled or not
@@ -54,15 +55,19 @@ typedef struct _log_options
 	_uchar_t devmode;
 }logsetting;
 
-
-#define LOG(level,printf_exp) \
-		(level ? MSGOUT("%s \n",printf_exp) : MSGOUT("%s \n",MSGFAIL))
-
 extern _uchar_t getLogLevel();
 
-extern InitLogger(_uchar_t level,_uchar_t devmode);
+extern void InitLogger(_uchar_t level,_uchar_t devmode,char* filepath,_uchar_t stdpath = 0);
 
 extern FILE* g_File;
+
+#define LOG(level ,printf_exp) \
+		(level ? MSGOUT("%s \n",printf_exp) : MSGOUT("%s \n",MSGFAIL))
+
+
+#define LOGL(level ,printf_exp) \
+		((getLogLevel() & LEVEL1) ? MSGOUT("%s \n",printf_exp) : MSGOUT("%s \n",MSGFAIL))
+
 
 #ifdef __cplusplus
 }
