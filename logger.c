@@ -66,15 +66,18 @@ void devlogprint(const char* filename,const char* funname,int lineno,const char*
 	//convert nano to milli seconds
 	millisec = (monotime.tv_nsec / 1000000);
 
+	pid_t tid = syscall(SYS_gettid);
+	pid_t pid = getpid();
+
 	if(g_File != NULL)
 	{
 		if(g_log_setting.devmode)
 		{
-			lout(g_File,"%s:%ld [%s] - %s@%s():[%d] :- %s",timestr,millisec,logtype,filename,funname,lineno,msg);
+			lout(g_File,"%s:%ld [%s][%d][%d]-%s@%s():[%d] :- %s",timestr,millisec,logtype,pid,tid,filename,funname,lineno,msg);
 		}
 		else
 		{
-			lout(g_File,"[%s] - %s :- %s",logtype,funname,msg);
+			lout(g_File,"[%s]-%s :- %s",logtype,funname,msg);
 		}
 	}
 	else if(g_log_setting.devmode == 2)
@@ -139,6 +142,10 @@ int main(int argc, char **argv)
 	LOGV(LEVEL3,"Init core.txt Log Actual 3 lvl Test\n");
 
 	InitLogger(LEVEL1|LEVEL2|LEVEL3,1,(char *)"",0);
+
+	LOGV(LEVEL2,"Init tty dev mode Log Actual 2 lvl Test\n");
+
+	InitLogger(LEVEL1|LEVEL2|LEVEL3,0,(char *)"",0);
 
 	LOGV(LEVEL2,"Init tty Log Actual 2 lvl Test\n");
 
