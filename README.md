@@ -3,6 +3,8 @@ Very fast, header only, C++ logging library.
 For priniting mechanism to debug during programming and testing in
 actual hardware or kit or host system.  
 
+![](TODO)
+
 ## Install
 #### Just copy the headers:
 
