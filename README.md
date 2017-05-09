@@ -1,5 +1,5 @@
 # Basic Logger (blog)
-Very fast, header only, C++ logging library.
+Very fast, header only,C or C++ logging library.
 For priniting mechanism to debug during programming and testing in
 actual hardware or kit or host system.  
 
